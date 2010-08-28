@@ -1,0 +1,3 @@
+* Set up phpDocumentor to generate documentation
+* Add samples and/or unit tests
+* Write README file
