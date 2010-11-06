@@ -26,37 +26,31 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 class djmCountries
 {
-  
-  public static function getList()
-  {
-    return require dirname(__FILE__) . '/../data/country-list.php';
-  }
-  
-  public static function codeToCountry($code)
-  {
-    $countries = self::getList();
-    if (isset($countries[$code]))
+    
+    public static function getList()
     {
-      return $countries[$code];
+        return require dirname(__FILE__) . '/../data/country-list.php';
     }
-    else
+    
+    public static function codeToCountry($code)
     {
-      return null;
+        $countries = self::getList();
+        if (isset($countries[$code])) {
+            return $countries[$code];
+        } else {
+            return null;
+        }
     }
-  }
-  
-  public static function countryToCode($value)
-  {
-    $value = strtolower($value);
-    foreach (self::getList() as $code => $country)
+    
+    public static function countryToCode($value)
     {
-      if (strtolower($country) == $value)
-      {
-        return $code;
-      }
+        $value = strtolower($value);
+        foreach (self::getList() as $code => $country) {
+            if (strtolower($country) == $value) {
+                return $code;
+            }
+        }
+        return null;
     }
-    return null;
-  }
-  
+    
 }
-

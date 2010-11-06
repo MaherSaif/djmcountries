@@ -44,18 +44,16 @@ require_once dirname(__FILE__) . '/../classes/djmCountries.php';
  */
 function smarty_function_select_country($params, &$smarty)
 {
-  $params['options'] = djmCountries::getList();
-  
-  // Convert country name to code
-  if (!empty($params['selected']) && strlen($params['selected']) > 2)
-  {
-    $params['selected'] = djmCountries::countryToCode($params['selected']);
-  }
-  
-  /**
-   * @see function.options.php
-   */
-  require_once $smarty->_get_plugin_filepath('function', 'options');
-  return smarty_function_options($params, $smarty);
+    $params['options'] = djmCountries::getList();
+    
+    // Convert country name to code
+    if (!empty($params['selected']) && strlen($params['selected']) > 2) {
+        $params['selected'] = djmCountries::countryToCode($params['selected']);
+    }
+    
+    /**
+     * @see function.options.php
+     */
+    require_once $smarty->_get_plugin_filepath('function', 'options');
+    return smarty_function_options($params, $smarty);
 }
-
