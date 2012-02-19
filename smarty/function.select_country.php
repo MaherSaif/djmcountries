@@ -24,11 +24,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
  * @license http://www.dave-miller.com/mit-license MIT License
  */
 
-require_once dirname(__FILE__) . '/../classes/djmCountries.php';
-
 /**
  * Generate <select> and <option> tags for country pickers.
- * 
+ *
  * @param array Smarty parameters
  * - string <b>name</b> = null:
  *    The name of the <select> tag (default: no <select> tag is output).
@@ -44,16 +42,15 @@ require_once dirname(__FILE__) . '/../classes/djmCountries.php';
  */
 function smarty_function_select_country($params, &$smarty)
 {
+    require_once dirname(__FILE__) . '/../classes/djmCountries.php';
+
     $params['options'] = djmCountries::getList();
-    
+
     // Convert country name to code
     if (!empty($params['selected']) && strlen($params['selected']) > 2) {
         $params['selected'] = djmCountries::countryToCode($params['selected']);
     }
-    
-    /**
-     * @see function.options.php
-     */
-    require_once $smarty->_get_plugin_filepath('function', 'options');
+
+    $smarty->loadPlugin('smarty_function_options');
     return smarty_function_options($params, $smarty);
 }
