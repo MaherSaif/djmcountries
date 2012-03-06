@@ -1,5 +1,5 @@
 <?php /*
-Copyright (c) 2010 Dave Miller
+Copyright (c) 2010-2012 Dave James Miller
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -20,18 +20,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 /**
  * @author Dave Miller
- * @copyright Copyright (c) 2010 Dave Miller
- * @license http://www.dave-miller.com/mit-license MIT License
+ * @copyright Copyright (c) 2010-2012 Dave James Miller
+ * @license http://davejamesmiller.com/mit-license MIT License
  */
 
 class djmCountries
 {
-    
+
     public static function getList()
     {
         return require dirname(__FILE__) . '/../data/country-list.php';
     }
-    
+
     public static function codeToCountry($code)
     {
         $countries = self::getList();
@@ -41,7 +41,7 @@ class djmCountries
             return null;
         }
     }
-    
+
     public static function countryToCode($value)
     {
         $value = strtolower($value);
@@ -52,5 +52,5 @@ class djmCountries
         }
         return null;
     }
-    
+
 }
