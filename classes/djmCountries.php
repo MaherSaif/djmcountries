@@ -19,7 +19,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 /**
- * @author Dave Miller
+ * @author Dave James Miller
  * @copyright Copyright (c) 2010-2012 Dave James Miller
  * @license http://davejamesmiller.com/mit-license MIT License
  */
@@ -27,30 +27,100 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 class djmCountries
 {
 
-    public static function getList()
+    public static function getNameToCodeList()
     {
-        return require dirname(__FILE__) . '/../data/country-list.php';
+        return require dirname(__FILE__) . '/../data/name-to-code.php';
     }
 
-    public static function codeToCountry($code)
+    public static function getCodeToNameList()
     {
-        $countries = self::getList();
-        if (isset($countries[$code])) {
-            return $countries[$code];
+        return require dirname(__FILE__) . '/../data/code-to-name.php';
+    }
+
+    public static function getList()
+    {
+        return self::getCodeToNameList();
+    }
+
+    public static function codeToName($code)
+    {
+        $list = self::getCodeToNameList();
+        $code = strtoupper($code);
+        if (isset($list[$code])) {
+            return $list[$code];
         } else {
             return null;
         }
     }
 
-    public static function countryToCode($value)
+    /**
+     * @deprecated
+     */
+    public static function codeToCountry($code)
     {
-        $value = strtolower($value);
-        foreach (self::getList() as $code => $country) {
-            if (strtolower($country) == $value) {
-                return $code;
-            }
+        return self::codeToName($code);
+    }
+
+    public static function nameToCode($name)
+    {
+        $name = strtolower($name);
+        $list = self::getNameToCodeList();
+        if (isset($list[$name])) {
+            return $list[$name];
+        } else {
+            return null;
         }
-        return null;
+    }
+
+    /**
+     * @deprecated
+     */
+    public static function countryToCode($name)
+    {
+        return self::nameToCode($name);
+    }
+
+    public static function isValidCode($code)
+    {
+        return (bool) self::codeToName($code);
+    }
+
+    public static function isValidName($name)
+    {
+        return (bool) self::nameToCode($name);
+    }
+
+    public static function isValid($value)
+    {
+        return (self::isValidCode($value) || self::isValidName($value));
+    }
+
+    public static function canonicalName($name)
+    {
+        $code = self::nameToCode($name);
+        if ($code) {
+            return self::codeToName($name);
+        } else {
+            return null;
+        }
+    }
+
+    public static function toCode($value)
+    {
+        if (self::isValidCode($value)) {
+            return strtoupper($value);
+        } else {
+            return self::nameToCode($value);
+        }
+    }
+
+    public static function toName($value)
+    {
+        if (self::isValidCode($value)) {
+            return self::codeToName($value);
+        } else {
+            return self::canonicalName($value);
+        }
     }
 
 }

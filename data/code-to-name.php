@@ -7,6 +7,8 @@
 // http://www.iso.org/iso/country_codes/iso_3166_code_lists.htm
 // (Not used because all names are uppercase)
 
+// Be sure to update name-to-code.php as well
+
 return array(
     "AF" => "Afghanistan",
     "AX" => "Åland Islands",
@@ -247,7 +249,7 @@ return array(
     "VU" => "Vanuatu",
     "VA" => "Vatican City",
     "VE" => "Venezuela",
-    "VN" => "Viet Nam",
+    "VN" => "Vietnam",
     "VG" => "Virgin Islands, British",
     "VI" => "Virgin Islands, U.S.",
     "WF" => "Wallis and Futuna",
